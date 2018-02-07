@@ -1,0 +1,42 @@
+using System;
+using System.Linq;
+class Solution
+{
+    static int[] revisedRussianRoulette(int[] doors, int n)
+    {
+        // Complete this function
+        int max = 0, double_temp = 0;
+        int[] arr = new int[2];
+        if (n > 0 && n <= 10000)
+        {
+            for (int i = 0; i < doors.Count(); i++)
+            {
+                if (doors[i] == 1)
+                {
+                    max++;
+                    if (i < doors.Count() - 1)
+                    {
+                        if (doors[i + 1] == doors[i])
+                        {
+                            double_temp = double_temp + 1;
+                            ++i;
+                            max++;
+                        }
+                    }
+                }
+            }
+        }
+        arr[0] = max - double_temp;
+        arr[1] = max;
+        return arr;
+    }
+
+    static void Main(String[] args)
+    {
+        int n = Convert.ToInt32(Console.ReadLine());
+        string[] doors_temp = Console.ReadLine().Split(' ');
+        int[] doors = Array.ConvertAll(doors_temp, Int32.Parse);
+        int[] result = revisedRussianRoulette(doors, n);
+        Console.WriteLine(String.Join(" ", result));
+    }
+}
